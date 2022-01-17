@@ -1,7 +1,7 @@
 // Boot sound engine (SC server)
 s.boot;
 
-// Generate sequential data
+// * STEP 1: Generate sequential data
 
 (
 d = IdentityDictionary.new;
@@ -35,8 +35,9 @@ fork{
 }
 )
 
-// Plot the histograms for the generated token sequences
-// The tokens have been coded to decimal representation (see method tokensProba in the class TokenRecognition)
+// * STEP 2:
+// + Plot the generated token sequences in a coded decimal representation (see method tokensProba in the class TokenRecognition)
+// + Plot the histograms for these sequences
 
 (
 ~hist_1 = d[d.keys.asArray.sort[3]]; // counter sequences with input: 1
@@ -53,7 +54,7 @@ a = ~hist_5.plot(name: "[seq] input: 5", minval:0, maxval:8);a.plotMode = \steps
 a = ~hist_7.plot(name: "[seq] input: 7", minval:0, maxval:8);a.plotMode = \steps; a.refresh;
 )
 
-// Correlations between histograms -- should be represented as QQ-plots
+// * STEP 3: Calculate paired correlations (should be done as QQ-plots)
 
 corr(~hist_1.histo(7), ~hist_3.histo(7))
 corr(~hist_1.histo(7), ~hist_5.histo(7))
@@ -62,6 +63,7 @@ corr(~hist_3.histo(7), ~hist_5.histo(7))
 corr(~hist_3.histo(7), ~hist_7.histo(7))
 corr(~hist_5.histo(7), ~hist_7.histo(7))
 
+//   * STEP 4: Explore the generated data
 
 (
 d.keys.asArray.sort do: { | step |

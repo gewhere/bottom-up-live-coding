@@ -1,9 +1,12 @@
 #+TITLE: A bottom-up approach to live coding based on continuous gestural interactions
 
 * How to execute the code
-
+- The classes should be moved (or linked) to the folder =Platform.userExtensionDir=
+- Recompile SC class library =thisProcess.recompile=
 - Run the script =generate-data.scd=
   + STEP 1: Generate sequential data
   + STEP 2:
-    * Plot the generated token sequences in a coded decimal representation
+    * Plot the generated token sequences in a coded decimal representation  (see method tokensProba in the class TokenRecognition)
     * Plot the histograms for these sequences
+  + STEP 3: Calculate paired correlations (should be done as QQ-plots)
+  + STEP 4: Explore the generated data
