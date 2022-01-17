@@ -1,12 +1,13 @@
 GenerateSequences {
 	var <>data;
-	var osc;
-	var <>synth;
+	var <osc;
+	var <synth;
 	var <>onCall;
+	var <start_pos, <end_pos;
 
 	*new { | clk = 10, step = 1, len = 1, gesture = 1, linearity = 1 |
-		// gesture == 1 >> ascending
-		// linearity == 1 >> TRUE
+		// gesture == 1 >> ascending -- 0 >> descending
+		// linearity == 1 >> TRUE (Line) -- 0 >> FALSE (XLine)
 		^super.new.init(clk, step, len, gesture, linearity)
 	}
 
@@ -18,8 +19,6 @@ GenerateSequences {
 
 	ugenconstr { | clk, step, len, gesture, linearity |
 		Server.default.waitForBoot {
-			var env, imp, notifier, latch;
-			var lin, start_pos, end_pos;
 			case
 			{ gesture == 1 }{
 				start_pos = 1;
@@ -47,10 +46,13 @@ GenerateSequences {
 			var arr = msg[3..];
 			data = data.add(arr);
 		},'/analysis', Server.default.addr);
-		// osc = OSCdef(\listener, { | msg |
-		// 	var arr = msg[3..];
-		// 	data = data.add(arr);
-		// }, '/analysis');
+		^this.data
 	}
 
+	freeSynthOSC {
+		fork {
+			synth.free;
+			osc.release;
+		}
+	}
 }

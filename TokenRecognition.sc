@@ -36,7 +36,7 @@ TokenRecognition {
 		list_of_tokens do: { | t | all_tokens = all_tokens ++ LHCregexp(t)};
 		id_set = all_tokens.as(IdentitySet);
 		id_set do: { |symbol| cnt2 = cnt2 + all_tokens.occurrencesOf(symbol) };
-		cnt2.postln; // sanity check -- should be the same size as `states_tokens.size`
+		//"\tall_tokes.size = ".post; cnt2.postln; // sanity check -- should be the same size as `states_tokens.size`
 		//^this.tokensProba(all_tokens)
 	}
 
