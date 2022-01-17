@@ -1,0 +1,9 @@
+#+TITLE: A bottom-up approach to live coding based on continuous gestural interactions
+
+* How to execute the code
+
+- Run the script =generate-data.scd=
+  + STEP 1: Generate sequential data
+  + STEP 2:
+    * Plot the generated token sequences in a coded decimal representation
+    * Plot the histograms for these sequences

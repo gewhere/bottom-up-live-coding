@@ -1,14 +1,16 @@
+// Boot sound engine (SC server)
 s.boot;
 
+// Generate sequential data
 
 (
 d = IdentityDictionary.new;
 ~name = [];
 ~data = [];
-~clk = 500;
-~step = [1, 3, 5, 7]; ~len = 1;
-~ascend = 1;
-~linear = 1;
+~clk = 500; // clock rate in Hz
+~step = [1, 3, 5, 7]; ~len = 1; // ~len in seconds
+~ascend = 1; // Ascending envelope values on the variable clock (0, descending values)
+~linear = 1; // 1 for Linear envelope on the variable clock (0, for XLine)
 fork{
 	~step do: { | i |
 		g = GenerateSequences(~clk, i, ~len, ~ascend, ~linear);
@@ -33,30 +35,32 @@ fork{
 }
 )
 
-d.keys.asArray.sort
+// Plot the histograms for the generated token sequences
+// The tokens have been coded to decimal representation (see method tokensProba in the class TokenRecognition)
 
 (
-~hist_3 = d[d.keys.asArray.sort[3]];
-~hist_7 = d[d.keys.asArray.sort[7]];
-~hist_11 = d[d.keys.asArray.sort[11]];
-~hist_15 = d[d.keys.asArray.sort[15]];
-~hist_3.histo(7).plot(name: "3", minval:0, maxval:20);
-~hist_7.histo(7).plot(name: "7", minval:0, maxval:20);
-~hist_11.histo(7).plot(name: "11", minval:0, maxval:20);
-~hist_15.histo(7).plot(name: "15", minval:0, maxval:20);
-a = ~hist_3.plot(name: "3", minval:0, maxval:8);a.plotMode = \steps; a.refresh;
-a = ~hist_7.plot(name: "7", minval:0, maxval:8);a.plotMode = \steps; a.refresh;
-a = ~hist_11.plot(name: "11", minval:0, maxval:8);a.plotMode = \steps; a.refresh;
-a = ~hist_15.plot(name: "15", minval:0, maxval:8);a.plotMode = \steps; a.refresh;
+~hist_1 = d[d.keys.asArray.sort[3]]; // counter sequences with input: 1
+~hist_3 = d[d.keys.asArray.sort[7]]; // counter sequences with input: 3
+~hist_5 = d[d.keys.asArray.sort[11]]; // counter sequences with input: 5
+~hist_7 = d[d.keys.asArray.sort[15]]; // counter sequences with input: 7
+~hist_1.histo(7).plot(name: "[hist] input: 1", minval:0, maxval:20);
+~hist_3.histo(7).plot(name: "[hist] input: 3", minval:0, maxval:20);
+~hist_5.histo(7).plot(name: "[hist] input: 5", minval:0, maxval:20);
+~hist_7.histo(7).plot(name: "[hist] input: 7", minval:0, maxval:20);
+a = ~hist_1.plot(name: "[seq] input: 1", minval:0, maxval:8);a.plotMode = \steps; a.refresh;
+a = ~hist_3.plot(name: "[seq] input: 3", minval:0, maxval:8);a.plotMode = \steps; a.refresh;
+a = ~hist_5.plot(name: "[seq] input: 5", minval:0, maxval:8);a.plotMode = \steps; a.refresh;
+a = ~hist_7.plot(name: "[seq] input: 7", minval:0, maxval:8);a.plotMode = \steps; a.refresh;
 )
 
+// Correlations between histograms -- should be represented as QQ-plots
 
+corr(~hist_1.histo(7), ~hist_3.histo(7))
+corr(~hist_1.histo(7), ~hist_5.histo(7))
+corr(~hist_1.histo(7), ~hist_7.histo(7))
+corr(~hist_3.histo(7), ~hist_5.histo(7))
 corr(~hist_3.histo(7), ~hist_7.histo(7))
-corr(~hist_3.histo(7), ~hist_11.histo(7))
-corr(~hist_3.histo(7), ~hist_15.histo(7))
-corr(~hist_7.histo(7), ~hist_11.histo(7))
-corr(~hist_7.histo(7), ~hist_15.histo(7))
-corr(~hist_11.histo(7), ~hist_15.histo(7))
+corr(~hist_5.histo(7), ~hist_7.histo(7))
 
 
 (
@@ -75,6 +79,3 @@ d.keys.asArray.sort do: { | step |
 	};
 };
 )
-
-///
-Help.gui
