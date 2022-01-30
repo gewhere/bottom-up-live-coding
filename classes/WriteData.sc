@@ -47,7 +47,7 @@ WriteData {
 		string = string ++ format("symbolic_stream:\t%\n", symbolicStream.cs);
 		string = string ++ format("counter_data\t%\n", counterOut.cs);
 		// write data
-		pwd = "/Users/geodia/gitlab/nime2022/data/" ++ dur.asString ++ "sec/";
+		pwd = "<INSERT PATH TO STORE DATA>" ++ dur.asString ++ "sec/";
 		pwd.mkdir;
 		fn = synthName.asString ++ "_" ++ gesture ++ "_" ++ fs.asString ++ "_" ++ dur.asString ++ "_" ++ low.asString ++ "_" ++ high.asString ++ ".tsv";
 		format("fn written: %", fn).postln;

@@ -3,10 +3,7 @@
 * How to execute the code
 - The classes should be moved (or linked) to the folder =Platform.userExtensionDir=
 - Recompile SC class library =thisProcess.recompile=
-- Run the script =generate-data.scd=
-  + STEP 1: Generate sequential data
-  + STEP 2:
-    * Plot the generated token sequences in a coded decimal representation  (see method tokensProba in the class TokenRecognition)
-    * Plot the histograms for these sequences
-  + STEP 3: Calculate paired correlations (should be done as QQ-plots)
-  + STEP 4: Explore the generated data
+- The scripts generate-data-sequences*.scd are generating the datasets based on the clock indicators (eg. 5x)
+- Run the code blocks inside each script
+	+ The script `generate-data-sequences-fixed.scd` only prints out the data (0-length sequences)
+	+ To store the data on your computer go to `./classes/WriteData.sc` and configure the path in line 50.
