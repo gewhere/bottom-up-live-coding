@@ -17,6 +17,7 @@ TokenRecognition {
 		tmp = states.deepCopy;
 		states_str = tmp.join;
 		states_str = states_str.replace("A","");
+		states_str = states_str.replace("nil","");
 		states_tokens = states_str.split($D); // split tokens on terminal $D (also removes $D)
 		states_tokens do: { |elem| if(elem.size > cnt){ cnt = elem.size } };
 		// Add $D as terminal -- removed above on the .split() method
@@ -24,6 +25,7 @@ TokenRecognition {
 		states_tokens.size do: { |i|
 			list_of_tokens = list_of_tokens.add(states_tokens[i] ++ "D")
 		};
+		list_of_tokens.pop;
 		longestTokens = cnt;
 		this.extract(list_of_tokens)
 	}
@@ -33,10 +35,10 @@ TokenRecognition {
 		cnt2 = 0;
 		all_tokens = [];
 
-		list_of_tokens do: { | t | all_tokens = all_tokens ++ LCregexp(t)};
+		list_of_tokens do: { | t | all_tokens = all_tokens ++ LHCregexp(t)};
 		id_set = all_tokens.as(IdentitySet);
 		id_set do: { |symbol| cnt2 = cnt2 + all_tokens.occurrencesOf(symbol) };
-		//"\tall_tokes.size = ".post; cnt2.postln; // sanity check -- should be the same size as `states_tokens.size`
+		cnt2.postln; // sanity check -- should be the same size as `states_tokens.size`
 		//^this.tokensProba(all_tokens)
 	}
 
@@ -59,6 +61,7 @@ TokenRecognition {
 		all_tokens = all_tokens.replace(\tokenG, 7);
 		//all_tokens.size.postln;
 		tokensListCoded =  all_tokens.deepCopy;
+		^tokensListCoded
 	}
 
 }

@@ -10,6 +10,9 @@ Server.killAll
 ~dur=1;~fs=50;{Latch.ar(Stepper.ar(Impulse.ar(Line.kr(1,~fs/2,~dur))),Impulse.ar(~fs+~fs*0.205))}.plot(~dur)
 
 
+// group plot
+// counter / non-aliasing / quasi-palindroms
+
 (
 ~dur=1;~fs=500;{
 	[
@@ -21,3 +24,5 @@ Server.killAll
 )
 
 
+Help.gui
+Plotter
