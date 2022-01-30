@@ -1,4 +1,4 @@
-# A bottom-up approach to live coding based on continuous gestural interactions
+# Bottom-up live coding: Analysis of continuous interactions towards predicting programming behaviours
 
 * How to execute the code
 - The classes should be moved (or linked) to the folder =Platform.userExtensionDir=
