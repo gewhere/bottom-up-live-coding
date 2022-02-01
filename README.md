@@ -7,5 +7,5 @@
 - Run the code blocks inside each script
 	+ The script `generate-data-sequences-fixed.scd` only prints out the data (0-length sequences)
 		* _Run this script first_ (controlled variable)
-		* Also, do not require modification to run
+		* No modification is required to execute
 	+ To store the data on your computer go to `./classes/WriteData.sc` and **configure the path in line 50**.
