@@ -1,6 +1,6 @@
 # Bottom-up live coding: Analysis of continuous interactions towards predicting programming behaviours
 
-* How to execute the code
+## How to execute the code
 - The classes should be moved (or linked) to the folder `Platform.userExtensionDir`
 - Recompile SC class library `thisProcess.recompile`
 - The scripts `generate-data-sequences*.scd` are generating the datasets based on the clock indicators (eg. 5x)
