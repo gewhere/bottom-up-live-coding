@@ -5,11 +5,20 @@ s.boot
 
 
 (
-SynthDef(\LHCfixed, { | out=0, clk=1, dur=1, id=0, step=0 |
-	var sampleClock, stepper, line;
-	//line = Line.kr(1, 1, dur, doneAction: 2);
+SynthDef(\LHCVlin, { | out=0, clk=1, id=0, step=0, dur=1, lo=1, hi=1 |
+	var sampleClock, varClock, stepper, line;
+	line = Line.kr(lo, hi, dur, doneAction: 2);
 	sampleClock = Impulse.kr(clk);
-	stepper = Stepper.kr(sampleClock, step: step);
+	varClock = Impulse.kr(line);
+	stepper = Stepper.kr(varClock, step: step);
+	Out.kr(out, SendTrig.kr(sampleClock, id, stepper))
+}).add;
+SynthDef(\LHCVexp, { | out=0, clk=1, id=0, step=0, dur=1, lo=1, hi=1 |
+	var sampleClock, varClock, stepper, line;
+	line = XLine.kr(lo, hi, dur, doneAction: 2);
+	sampleClock = Impulse.kr(clk);
+	varClock = Impulse.kr(line);
+	stepper = Stepper.kr(varClock, step: step);
 	Out.kr(out, SendTrig.kr(sampleClock, id, stepper))
 }).add;
 )
@@ -21,7 +30,7 @@ SynthDef(\LHCfixed, { | out=0, clk=1, dur=1, id=0, step=0 |
 ~period = 1 / ~fs;
 ~dur = ((1..20) / 4);
 ~low = 0.01;
-~high = 5;
+~high = 5.0;
 {
 	~dur do: { | idx |
 		x = Synth(\LHCfixed, [\clk, ~fs, \dur, idx, \step, 1]);
