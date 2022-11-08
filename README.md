@@ -2,6 +2,8 @@
 
 - Repository URL: https://github.com/gewhere/bottom-up-live-coding
 
+This is the code repository for NIME 2022 article: https://nime.pubpub.org/pub/z0lli2w0/
+
 ## How to execute the code
 - The classes should be moved (or linked) to the folder `Platform.userExtensionDir`
 - Recompile SC class library `thisProcess.recompile`
